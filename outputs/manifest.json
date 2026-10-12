@@ -4,18 +4,58 @@
   "files": [
     {
       "path": ".gitignore",
-      "bytes": 556,
-      "sha256": "c9f7a4be5d4a9264dc71846b430eded91c7a2630fb24a8704613b12cd2f07836"
+      "bytes": 931,
+      "sha256": "bc56d4d92f188bda3d7d5befc0d195f68725f086d4ea52f250278dcc7b2e3edf"
     },
     {
       "path": "README.md",
-      "bytes": 2688,
-      "sha256": "28fdaf0221fbf3bfa1bee10ed635a13dbd98db11e6a277ed9c105ac8b1579014"
+      "bytes": 2745,
+      "sha256": "b53c452cfdf1730cceb40594bdb95abc25feb04c54ad12c1cf69d83098537bb8"
     },
     {
       "path": "outputs/12-ott-2026/ARES-DACH-Ingestion-Specification.pdf",
-      "bytes": 1050205,
-      "sha256": "80c18ecc588055bc819bbd2e9336e97b34b04db3f06abe60057c7483e270943c"
+      "bytes": 1050339,
+      "sha256": "901bb73af37a02a9c19b93bb454f206a7cf37693700aff6fefca7cb3baafca00"
+    },
+    {
+      "path": "outputs/12-ott-2026/content-loader.schema.json",
+      "bytes": 733494,
+      "sha256": "64ceaef3530e6738b1fe9bb09afa2a0cae8e5083d51bfb47375512dc5a5e2693"
+    },
+    {
+      "path": "outputs/12-ott-2026/content-output-contract.json",
+      "bytes": 7986,
+      "sha256": "0b5c4b44ed1f2b218a1f75b9aa1d12683ba25552b7122c5fa1e83ac1ed356514"
+    },
+    {
+      "path": "outputs/12-ott-2026/contract-roster.json",
+      "bytes": 8885,
+      "sha256": "be77ef71e21441519e9b544794596e39e0176c20db78464b26205e7f5b3cd57f"
+    },
+    {
+      "path": "outputs/12-ott-2026/counters-loader.schema.json",
+      "bytes": 14996,
+      "sha256": "3dd1a2c4bf8440eb48d875277a2476d89019b1531501a6653dab21a6ba9733e6"
+    },
+    {
+      "path": "outputs/12-ott-2026/dach-content.mapping.json",
+      "bytes": 7681,
+      "sha256": "402a921ef892ee2626e83ced48c75aa6b567b71a9037de85561d345d97547a44"
+    },
+    {
+      "path": "outputs/12-ott-2026/loader-profiles.json",
+      "bytes": 7216,
+      "sha256": "112f7543249ed19158a2423c176981f8f73a3cb54fb92811d48cc736a1e4f647"
+    },
+    {
+      "path": "outputs/12-ott-2026/synthetic-content.json",
+      "bytes": 1183,
+      "sha256": "698bbab8b0aae83d59a83dd7f5b925bbd93500728dbfa3a411b0a33970650cc2"
+    },
+    {
+      "path": "outputs/12-ott-2026/synthetic-counters.json",
+      "bytes": 1351,
+      "sha256": "d4483e2ff70ecde15c242d06be2a41c6e38c63e09bb5d35f787d7b52ef566f8f"
     },
     {
       "path": "outputs/ARES-DACH-Ingestion-Specification.docx",

@@ -4,7 +4,7 @@ DACH ingestion contract for the UMAS v3 catalogue, scoped to **JOYN, JOYN_AT and
 
 ## Deliverables
 
-- [12 October 2026 sharing package — PDF only](outputs/12-ott-2026/ARES-DACH-Ingestion-Specification.pdf). This edition does not claim that the supporting JSON files are attached.
+- [12 October 2026 sharing package](outputs/12-ott-2026/): the formal PDF, all six technical attachments listed in §10.1, and two synthetic JSON input examples. All files are together; technical attachment references use local filenames.
 
 - [Formal specification — PDF](outputs/ARES-DACH-Ingestion-Specification.pdf) and [editable Word document](outputs/ARES-DACH-Ingestion-Specification.docx), with open points first, one three-lane flow and a complete 68-field dictionary in §11 (JSON type, OpenSearch type and meaning).
 - [Content Loader input JSON Schema](outputs/schemas/content-loader.schema.json).

@@ -16,6 +16,14 @@
 !/outputs/12-ott-2026/
 /outputs/12-ott-2026/*
 !/outputs/12-ott-2026/ARES-DACH-Ingestion-Specification.pdf
+!/outputs/12-ott-2026/content-loader.schema.json
+!/outputs/12-ott-2026/counters-loader.schema.json
+!/outputs/12-ott-2026/dach-content.mapping.json
+!/outputs/12-ott-2026/content-output-contract.json
+!/outputs/12-ott-2026/loader-profiles.json
+!/outputs/12-ott-2026/contract-roster.json
+!/outputs/12-ott-2026/synthetic-content.json
+!/outputs/12-ott-2026/synthetic-counters.json
 /scripts/*
 !/scripts/dach_delivery/
 **/__pycache__/

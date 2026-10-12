@@ -1,0 +1,421 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DACH UMAS flat Content Loader output support contract",
+  "description": "Support schema for schema.output after flat-v1 projection. It is not a third ingress schema. Optional source roots such as entityType and number remain optional because not all five record kinds declare them. The four active arrays and three derived tenant dates are required so the normalizer can emit explicit empty/null resets. Independent relevant-airing arrays do not prove tenant/date tuple correlation. Fingerprint target/contribution fields and Counters Loader fields are excluded.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(?!\\s*$).+",
+      "description": "Content identity; retained by flat output."
+    },
+    "type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "entityType": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "publishingStatus": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "productionCountries": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "productionYear": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "number": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "duration": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cast_name": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "crew_name": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "titles_text": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "genres_names_text": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "keywords_names_text": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cast_role": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "crew_role": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cts_tags_value": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "age_ratings_min_age": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "age_ratings_type": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "relevant_airing_info_datetime": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "relevant_airing_info_distribution_tenant": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "broadcast_date_joyn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "broadcast_date_joyn_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "broadcast_date_joyn_ch": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "active_distribution_tenants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "active_distribution_models": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "active_access_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "active_brand_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fingerprint_super": {
+      "type": "string",
+      "description": "UMAS-side contribution used by the candidate Merge configuration."
+    },
+    "brand_names": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "broadcast_date_joyn",
+    "broadcast_date_joyn_at",
+    "broadcast_date_joyn_ch",
+    "active_distribution_tenants",
+    "active_distribution_models",
+    "active_access_rules",
+    "active_brand_codes",
+    "fingerprint_super"
+  ],
+  "additionalProperties": false
+}

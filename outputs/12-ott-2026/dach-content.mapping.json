@@ -1,0 +1,310 @@
+{
+  "mappings": {
+    "dynamic": "strict",
+    "_meta": {
+      "status": "configuration proposal; review required before deployment",
+      "scope": "DACH JOYN, JOYN_AT, JOYN_CH",
+      "notes": [
+        "No shards, analyzers, aliases, or deployment settings are specified.",
+        "broadcastDate source aliases are intentionally omitted; the three per-tenant derived fields are authoritative.",
+        "visibilities is intentionally omitted from indexed output.",
+        "brand_names is reserved pending Product/API confirmation.",
+        "Fingerprint formats/analyzers remain open.",
+        "lastARESLoaderModified is assigned from the ISO UTC Ingress envelope timestamp (ares-ingress/lib/transformPayload.ts) and passed through by Content Loader (ares-content-loader/lib/service.ts).",
+        "duration is integer in all three UMAS source records that declare it, with source maximum 9007199254740991; OpenSearch long avoids 32-bit truncation.",
+        "productionYear remains keyword because all five UMAS schemas declare string-or-null.",
+        "number and age_ratings_min_age preserve source integer range using OpenSearch long."
+      ]
+    },
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "entityType": {
+        "type": "keyword"
+      },
+      "publishingStatus": {
+        "type": "keyword"
+      },
+      "productionCountries": {
+        "type": "keyword"
+      },
+      "productionYear": {
+        "type": "keyword"
+      },
+      "number": {
+        "type": "long",
+        "coerce": false
+      },
+      "duration": {
+        "type": "long",
+        "coerce": false
+      },
+      "cast_name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "crew_name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "cast_role": {
+        "type": "keyword"
+      },
+      "crew_role": {
+        "type": "keyword"
+      },
+      "titles_text": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "genres_names_text": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "keywords_names_text": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "cts_tags_value": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "age_ratings_min_age": {
+        "type": "long",
+        "coerce": false
+      },
+      "age_ratings_type": {
+        "type": "keyword"
+      },
+      "relevant_airing_info_datetime": {
+        "type": "date",
+        "format": "strict_date_optional_time",
+        "ignore_malformed": false
+      },
+      "relevant_airing_info_distribution_tenant": {
+        "type": "keyword"
+      },
+      "broadcast_date_joyn": {
+        "type": "date",
+        "format": "strict_date_optional_time",
+        "ignore_malformed": false
+      },
+      "broadcast_date_joyn_at": {
+        "type": "date",
+        "format": "strict_date_optional_time",
+        "ignore_malformed": false
+      },
+      "broadcast_date_joyn_ch": {
+        "type": "date",
+        "format": "strict_date_optional_time",
+        "ignore_malformed": false
+      },
+      "active_distribution_tenants": {
+        "type": "keyword"
+      },
+      "active_distribution_models": {
+        "type": "keyword"
+      },
+      "active_access_rules": {
+        "type": "keyword"
+      },
+      "active_brand_codes": {
+        "type": "keyword"
+      },
+      "brand_names": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "fingerprint_super": {
+        "type": "text"
+      },
+      "fingerprint_metadata": {
+        "type": "text"
+      },
+      "fingerprint": {
+        "type": "text"
+      },
+      "lastARESLoaderModified": {
+        "type": "date",
+        "format": "strict_date_optional_time",
+        "ignore_malformed": false
+      },
+      "unique_viewers_JOYN_AVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_SVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_SVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_SVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AT_AVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AT_AVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AT_AVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AT_SVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AT_SVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_AT_SVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_CH_AVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_CH_AVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_CH_AVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_CH_SVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_CH_SVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "unique_viewers_JOYN_CH_SVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_SVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_SVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_SVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AT_AVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AT_AVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AT_AVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AT_SVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AT_SVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_AT_SVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_CH_AVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_CH_AVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_CH_AVOD_7d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_CH_SVOD_1d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_CH_SVOD_2d": {
+        "type": "long",
+        "coerce": false
+      },
+      "views_JOYN_CH_SVOD_7d": {
+        "type": "long",
+        "coerce": false
+      }
+    }
+  }
+}
