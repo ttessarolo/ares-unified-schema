@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "scope": "Reviewed DACH delivery and reproducible source; no real Kafka payloads or external source archives.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 450,
+      "sha256": "a8a43eb97cdeba961b4ca54f09a87f9472345c51d2c9416c881613449b0b4039"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2424,
+      "sha256": "ba5deacee843f26def7b642d9759e82c5c5e640416fa2d7e5895e8f9b00da0be"
+    },
+    {
+      "path": "outputs/ARES-DACH-Ingestion-Specification.docx",
+      "bytes": 420472,
+      "sha256": "631bfba6313ac3ab7bd8e7bf7c0755de14e4111c9841518f5a2343877d655741"
+    },
+    {
+      "path": "outputs/ARES-DACH-Ingestion-Specification.pdf",
+      "bytes": 895253,
+      "sha256": "52b6206b6cc0b4ea4f6a0f649e71419bd41608cce01f74ce4bf9be8c36749e92"
+    },
+    {
+      "path": "outputs/contracts/content-output-contract.json",
+      "bytes": 7986,
+      "sha256": "0b5c4b44ed1f2b218a1f75b9aa1d12683ba25552b7122c5fa1e83ac1ed356514"
+    },
+    {
+      "path": "outputs/contracts/contract-roster.json",
+      "bytes": 8954,
+      "sha256": "9a1d216f1b5b752d9b0c17ca18b0f4c5d3168d2815974d655382ce1d6c6f4f44"
+    },
+    {
+      "path": "outputs/contracts/loader-profiles.json",
+      "bytes": 7282,
+      "sha256": "6b8bf3445a1cdb53ebefd8136654e84f88a5f7df1c3cf4d73fcd105cbc0d9c29"
+    },
+    {
+      "path": "outputs/contracts/synthetic-content.json",
+      "bytes": 1183,
+      "sha256": "698bbab8b0aae83d59a83dd7f5b925bbd93500728dbfa3a411b0a33970650cc2"
+    },
+    {
+      "path": "outputs/contracts/synthetic-counters.json",
+      "bytes": 1351,
+      "sha256": "d4483e2ff70ecde15c242d06be2a41c6e38c63e09bb5d35f787d7b52ef566f8f"
+    },
+    {
+      "path": "outputs/figures/ingestion-three-lanes.png",
+      "bytes": 409505,
+      "sha256": "7bf5e05f0dc19fcb50c95b0f26b8c8c8b510c35dd83d85157b96640ac9c753f6"
+    },
+    {
+      "path": "outputs/figures/ingestion-three-lanes.svg",
+      "bytes": 20332,
+      "sha256": "03ed52872895aa918ae9326852d38c95b21dd83795e3796a621708fba860edc0"
+    },
+    {
+      "path": "outputs/opensearch/dach-content.mapping.json",
+      "bytes": 7681,
+      "sha256": "402a921ef892ee2626e83ced48c75aa6b567b71a9037de85561d345d97547a44"
+    },
+    {
+      "path": "outputs/schemas/content-loader.schema.json",
+      "bytes": 733494,
+      "sha256": "64ceaef3530e6738b1fe9bb09afa2a0cae8e5083d51bfb47375512dc5a5e2693"
+    },
+    {
+      "path": "outputs/schemas/counters-loader.schema.json",
+      "bytes": 14996,
+      "sha256": "3dd1a2c4bf8440eb48d875277a2476d89019b1531501a6653dab21a6ba9733e6"
+    },
+    {
+      "path": "outputs/verification.json",
+      "bytes": 3740,
+      "sha256": "2a90e6197120baaea75765001d3e4205eccbb0dc9fcd9180b0ad81ae09c83fe4"
+    },
+    {
+      "path": "scripts/dach_delivery/README.md",
+      "bytes": 2501,
+      "sha256": "f5f15ab24f988a78f183108db2ba61f1fcb0cebe6ae031bae216d9a68e3ff2c1"
+    },
+    {
+      "path": "scripts/dach_delivery/build_contracts.py",
+      "bytes": 27339,
+      "sha256": "0d0057670598b69b8ad5e0aeec3f21d1c9365b6d1f6d3c1a3ebba1536a00f24c"
+    },
+    {
+      "path": "scripts/dach_delivery/build_document.py",
+      "bytes": 7226,
+      "sha256": "b3e6e69ba7fab7b248195049eab71631726e8cb60bee6681e7269d355d788008"
+    },
+    {
+      "path": "scripts/dach_delivery/build_figure.py",
+      "bytes": 10378,
+      "sha256": "365677791e5aac9357c2a160fdea25ff4448a5f340d248e96f147fc302ebe122"
+    },
+    {
+      "path": "scripts/dach_delivery/document.md",
+      "bytes": 24378,
+      "sha256": "fb824881835c2238af654c344fc3acb8d2b274fa45d967dfd28ec1f13ffe887f"
+    },
+    {
+      "path": "scripts/dach_delivery/package_manifest.py",
+      "bytes": 872,
+      "sha256": "8d8b21d29b3cd9c7966ff031621349035eb3fc92501c2e423c463ea635807080"
+    },
+    {
+      "path": "scripts/dach_delivery/verify_delivery.py",
+      "bytes": 9634,
+      "sha256": "4eed64bc463440c630bab2ed65bfa45f27a100e8bada6ac38d40dc508b9bbece"
+    }
+  ]
+}

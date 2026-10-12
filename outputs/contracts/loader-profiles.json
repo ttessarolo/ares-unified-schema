@@ -1,0 +1,202 @@
+{
+  "status": "reviewable configuration description; not directly deployable",
+  "scope": {
+    "tenants": [
+      "JOYN",
+      "JOYN_AT",
+      "JOYN_CH"
+    ]
+  },
+  "profiles": {
+    "umas_content": {
+      "role": "full-source UMAS ingestion and flat projection",
+      "input_schema": "outputs/schemas/content-loader.schema.json",
+      "output_contract_support": "outputs/contracts/content-output-contract.json",
+      "idField": "id",
+      "index": "<shared content write index>",
+      "candidate_token_actions": [
+        "uw",
+        "d"
+      ],
+      "deactivation_action": "uw with full source and publishingStatus=INACTIVE",
+      "full_source_requirement": "All non-delete events contain the full source document. Only d is ID-only; the input schema cannot enforce action-specific completeness.",
+      "flatJsonOutput": true,
+      "merge": {
+        "enabled": true,
+        "merge": [
+          "fingerprint_super"
+        ],
+        "with": [
+          "fingerprint_metadata"
+        ],
+        "to": "fingerprint",
+        "missing_stored_contribution": "empty string",
+        "incoming_target": "must not be supplied"
+      },
+      "pipeline": {
+        "active": true,
+        "projection_stage": "first inside ares-pipeline",
+        "egress_injection_required": true,
+        "fingerprint_destination": "fingerprint_super",
+        "fingerprint_rules": "keys, boosts and token format pending configuration"
+      },
+      "selected_source_paths": [
+        "id",
+        "type",
+        "entityType",
+        "publishingStatus",
+        "titles[].text",
+        "genres[].names[].text",
+        "keywords[].names[].text",
+        "cast[].name",
+        "cast[].role",
+        "crew[].name",
+        "crew[].role",
+        "productionCountries",
+        "productionYear",
+        "duration",
+        "number",
+        "ctsTags[].value",
+        "ageRatings[].minAge",
+        "ageRatings[].type",
+        "relevantAiringInfo[].datetime",
+        "relevantAiringInfo[].distributionTenant",
+        "visibilities[].distributionTenant",
+        "visibilities[].type",
+        "visibilities[].requiredAccessRights",
+        "visibilities[].brandCodes",
+        "visibilities[].timeslots[].start",
+        "visibilities[].timeslots[].end"
+      ],
+      "conditional_derived_include": [
+        "brand_names only when Brand enrichment is enabled"
+      ],
+      "input_decorator_only_source_paths": [
+        "ageRatings[].ratingSystem"
+      ],
+      "filter_predicate_paths": [
+        "titles[].language.code",
+        "titles[].type",
+        "genres[].names[].language.code",
+        "keywords[].names[].language.code"
+      ],
+      "filters": [
+        "titles[language.code=deu][type=main]",
+        "genres[].names[language.code=deu]",
+        "keywords[].names[language.code=deu]",
+        "visibilities[distributionTenant=JOYN|JOYN_AT|JOYN_CH]",
+        "relevantAiringInfo[distributionTenant=JOYN|JOYN_AT|JOYN_CH]"
+      ],
+      "scheduling": {
+        "index": "<dedicated schedule index>",
+        "schedules": [
+          {
+            "keys": {
+              "root": "visibilities[].timeslots",
+              "start": "start",
+              "end": "end"
+            },
+            "applyCurrentState": true,
+            "skipPastEvents": true,
+            "excludeFromOutput": true,
+            "destroyExpired": false,
+            "events": {
+              "start": {
+                "active": true,
+                "evaluator": "state-based aggregate evaluator to configure"
+              },
+              "end": {
+                "active": true,
+                "evaluator": "same state-based evaluator"
+              },
+              "destroy": {
+                "active": false
+              }
+            },
+            "context": [
+              "distributionTenant",
+              "type",
+              "requiredAccessRights",
+              "brandCodes"
+            ],
+            "membership": "start <= current time < end"
+          }
+        ]
+      },
+      "output_decorator_contract": {
+        "date_source": "relevantAiringInfo[].datetime from the same distributionTenant entry",
+        "static_date_map": {
+          "JOYN": "broadcast_date_joyn",
+          "JOYN_AT": "broadcast_date_joyn_at",
+          "JOYN_CH": "broadcast_date_joyn_ch"
+        },
+        "date_reset": "Emit every configured date field on each full-source update; null for absent tenant or datetime.",
+        "airing_cardinality": "zero or one entry per tenant; duplicate/invalid values are errors, never max(datetime)",
+        "missing_owned_visibility_root": "normalise to [] before scheduling under the full-source contract",
+        "other_owned_resets": "emit [] for absent selected lists and null for absent selected nullable scalars; never reset Metadata/counter fields",
+        "relevant_airing_output": "retain selected flattened arrays; derived tenant fields are authoritative for date queries"
+      },
+      "state_aggregate_outputs": [
+        "active_distribution_tenants",
+        "active_distribution_models",
+        "active_access_rules",
+        "active_brand_codes"
+      ],
+      "state_evaluator": "Rebuild every aggregate from eligible $active windows; return [true,payload]. INACTIVE or no eligible windows emits all four arrays as [].",
+      "open_items": [
+        "Tuple encoding and escaping",
+        "Invalid-window error handling",
+        "Brand Product/API confirmation",
+        "Fingerprint rules and analysis",
+        "Rating exceptions and JOYN_CH applicability"
+      ]
+    },
+    "metadata": {
+      "role": "parallel enrichment; detailed fields/provider out of scope",
+      "candidate_token_actions": [
+        "u"
+      ],
+      "idField": "id",
+      "index": "<shared content write index>",
+      "create_on_missing_content": false,
+      "merge": {
+        "enabled": true,
+        "merge": [
+          "fingerprint_metadata"
+        ],
+        "with": [
+          "fingerprint_super"
+        ],
+        "to": "fingerprint"
+      },
+      "field_ownership": "Own metadata plus own fingerprint contribution only; extend strict mapping before activation.",
+      "notifications": "AWS external configuration; producer decides next action; no automatic resubmission"
+    },
+    "counters": {
+      "role": "dedicated counter snapshot UPDATE on existing content",
+      "input_schema": "outputs/schemas/counters-loader.schema.json",
+      "output_schema": "outputs/schemas/counters-loader.schema.json",
+      "idField": "id",
+      "index": "<shared content write index>",
+      "candidate_token_actions": [
+        "u"
+      ],
+      "create_on_missing_content": false,
+      "flatJsonOutput": false,
+      "pipeline": {
+        "active": false
+      },
+      "merge": {
+        "active": false
+      },
+      "schedules": [],
+      "decorators": [],
+      "counter_semantics": "Absolute assignment of complete owned snapshot; null clears unknown/inapplicable, zero is measured. No increments or fingerprint writes.",
+      "initial_cadence": "once daily from Analytics; independent of continuous UMAS lane",
+      "open_items": [
+        "Producer confirmation of 36 fields, AVOD/SVOD labels, paired views windows and null convention",
+        "Deployed missing-content failure path"
+      ]
+    }
+  }
+}

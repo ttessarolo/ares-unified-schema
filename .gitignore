@@ -1,0 +1,21 @@
+# Publish only the reviewed delivery package. Local research remains local.
+/*
+!/.gitignore
+!/README.md
+!/outputs/
+!/scripts/
+/outputs/*
+!/outputs/ARES-DACH-Ingestion-Specification.docx
+!/outputs/ARES-DACH-Ingestion-Specification.pdf
+!/outputs/schemas/
+!/outputs/opensearch/
+!/outputs/contracts/
+!/outputs/figures/
+!/outputs/verification.json
+!/outputs/manifest.json
+/scripts/*
+!/scripts/dach_delivery/
+**/__pycache__/
+**/.DS_Store
+**/.env
+**/.env.*

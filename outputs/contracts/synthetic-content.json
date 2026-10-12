@@ -1,0 +1,59 @@
+{
+  "id": "synthetic-dach-content-001",
+  "type": "MOVIE",
+  "entityType": "MOVIE",
+  "source": "synthetic-fixture",
+  "publishingStatus": "ACTIVE",
+  "titles": [
+    {
+      "text": "Synthetischer DACH-Titel",
+      "type": "main",
+      "language": {
+        "code": "deu",
+        "standard": "ISO-639-2"
+      }
+    }
+  ],
+  "productionCountries": [
+    "DE"
+  ],
+  "productionYear": "2026",
+  "duration": 90,
+  "relevantAiringInfo": [
+    {
+      "distributionTenant": "JOYN",
+      "datetime": "2026-10-12T10:00:00Z",
+      "streamId": "synthetic-stream-1"
+    },
+    {
+      "distributionTenant": "MEDIASET_IT"
+    }
+  ],
+  "visibilities": [
+    {
+      "type": "AVOD",
+      "distributionTenant": "JOYN",
+      "requiredAccessRights": [
+        "synthetic-free"
+      ],
+      "brandCodes": [
+        "synthetic-brand-code"
+      ],
+      "timeslots": []
+    },
+    {
+      "type": "SVOD",
+      "distributionTenant": "JOYN_AT",
+      "requiredAccessRights": [],
+      "brandCodes": [],
+      "timeslots": []
+    },
+    {
+      "type": "AVOD",
+      "distributionTenant": "JOYN_CH",
+      "requiredAccessRights": [],
+      "brandCodes": [],
+      "timeslots": []
+    }
+  ]
+}

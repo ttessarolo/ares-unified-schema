@@ -1,0 +1,521 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DACH Counters Loader technical input",
+  "description": "Complete flat UPDATE snapshot for an existing content id. All 36 candidate fields are required. Values are absolute assignments, never increments. Field names, business-model grouping and windows remain producer proposals.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(?!\\s*$).+",
+      "description": "Existing content identifier to update."
+    },
+    "unique_viewers_JOYN_AVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_SVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_SVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_SVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AT_AVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AT_AVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AT_AVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AT_SVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AT_SVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_AT_SVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_CH_AVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_CH_AVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_CH_AVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_CH_SVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_CH_SVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "unique_viewers_JOYN_CH_SVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_SVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_SVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_SVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AT_AVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AT_AVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AT_AVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AT_SVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AT_SVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_AT_SVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_CH_AVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_CH_AVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_CH_AVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_CH_SVOD_1d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_CH_SVOD_2d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    },
+    "views_JOYN_CH_SVOD_7d": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Absolute counter snapshot value; null explicitly clears an unknown or inapplicable value, and zero is a distinct count."
+    }
+  },
+  "required": [
+    "id",
+    "unique_viewers_JOYN_AVOD_1d",
+    "unique_viewers_JOYN_AVOD_2d",
+    "unique_viewers_JOYN_AVOD_7d",
+    "unique_viewers_JOYN_SVOD_1d",
+    "unique_viewers_JOYN_SVOD_2d",
+    "unique_viewers_JOYN_SVOD_7d",
+    "unique_viewers_JOYN_AT_AVOD_1d",
+    "unique_viewers_JOYN_AT_AVOD_2d",
+    "unique_viewers_JOYN_AT_AVOD_7d",
+    "unique_viewers_JOYN_AT_SVOD_1d",
+    "unique_viewers_JOYN_AT_SVOD_2d",
+    "unique_viewers_JOYN_AT_SVOD_7d",
+    "unique_viewers_JOYN_CH_AVOD_1d",
+    "unique_viewers_JOYN_CH_AVOD_2d",
+    "unique_viewers_JOYN_CH_AVOD_7d",
+    "unique_viewers_JOYN_CH_SVOD_1d",
+    "unique_viewers_JOYN_CH_SVOD_2d",
+    "unique_viewers_JOYN_CH_SVOD_7d",
+    "views_JOYN_AVOD_1d",
+    "views_JOYN_AVOD_2d",
+    "views_JOYN_AVOD_7d",
+    "views_JOYN_SVOD_1d",
+    "views_JOYN_SVOD_2d",
+    "views_JOYN_SVOD_7d",
+    "views_JOYN_AT_AVOD_1d",
+    "views_JOYN_AT_AVOD_2d",
+    "views_JOYN_AT_AVOD_7d",
+    "views_JOYN_AT_SVOD_1d",
+    "views_JOYN_AT_SVOD_2d",
+    "views_JOYN_AT_SVOD_7d",
+    "views_JOYN_CH_AVOD_1d",
+    "views_JOYN_CH_AVOD_2d",
+    "views_JOYN_CH_AVOD_7d",
+    "views_JOYN_CH_SVOD_1d",
+    "views_JOYN_CH_SVOD_2d",
+    "views_JOYN_CH_SVOD_7d"
+  ],
+  "additionalProperties": false
+}
