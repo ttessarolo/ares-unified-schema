@@ -218,3 +218,131 @@ Test full creation and refresh preserving other lanes; Metadata before/after Sup
 Declare generated fields in output schemas and verify explicit owned-field resets. Test schedule exceptions: content, schedule rows and backups are not one transaction; failures must not silently leave stale availability.
 
 Close each open item before enabling its capability. Series and conditional Brand enrichment may remain disabled. Qualify index behaviour, API capacity and realtime latency separately from local schema checks.
+
+<!-- schema dictionary -->
+<!-- page landscape -->
+## 11 Complete indexed schema dictionary
+All **68 mapped fields** are listed below: 32 content/shared fields and 36 counters. JSON types describe the indexed output. The full nested input vocabulary is defined by `schemas/content-loader.schema.json` (§10.1).
+
+`[]` denotes a list; `|null` allows null, including placeholders inside parentheses. `datetime` is an RFC3339 string; `date` uses `strict_date_optional_time` (derived dates use UTC). `text + keyword` adds an indexed `.keyword` subfield, not another `_source` property. OpenSearch types apply to each list value.
+
+### 11.1 Identity and source metadata
+Super owns these fields. Optional values depend on record kind; null clears stale scalars. The common id joins all three lanes.
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `id` | `string` | `keyword` | Stable UMAS content identifier; the cross-feed join key and Loader idField. Nonblank string. |
+| `type` | `string|null` | `keyword` | UMAS record kind: EPISODE, CLIP, MOVIE, SEASON or SERIES. |
+| `entityType` | `string|null` | `keyword` | Source subtype: FULL_EPISODE for Episode; MOVIE for Movie; CLIP, TRAILER, PROMO or EXTRA for Clip. Not defined for Series/Season. |
+| `publishingStatus` | `string|null` | `keyword` | Source publication state: ACTIVE or INACTIVE. INACTIVE clears all availability aggregates (§5). |
+| `productionCountries` | `string[]|null` | `keyword` | Source production-country codes from productionCountries, e.g. DE or AT; not distribution tenants. |
+| `productionYear` | `string|null` | `keyword` | Source production year as a string. No integer conversion; exact-value filtering uses keyword. |
+| `number` | `integer|null` | `long` | Source episode number for Episode or season number for Season. Its meaning follows type; not a total count. |
+| `duration` | `integer|null` | `long` | Nonnegative duration for Episode, Clip or Movie. Unit is unspecified in the source schema; confirm before duration-based rules. |
+
+### 11.2 Cast and crew
+Super projects the source lists. Separate name and role arrays do not preserve a same-person predicate in OpenSearch (§4.1).
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `cast_name` | `(string|null)[]|null` | `text + keyword` | Cast person names from cast[].name. |
+| `cast_role` | `(string|null)[]|null` | `keyword` | Cast roles from cast[].role; distinct from crew roles. |
+| `crew_name` | `(string|null)[]|null` | `text + keyword` | Crew person names from crew[].name. |
+| `crew_role` | `(string|null)[]|null` | `keyword` | Crew roles from crew[].role. No controlled vocabulary is declared in the source schema. |
+
+<!-- page landscape -->
+### 11.3 Search labels
+Super owns these lists. A single selected value remains a list; absent owned values must be explicitly reset, normally to [].
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `titles_text` | `(string|null)[]|null` | `text + keyword` | Text from titles[].text after selecting language.code=deu and type=main. Middleware title presentation remains a separate responsibility (§7.2). |
+| `genres_names_text` | `(string|null)[]|null` | `text + keyword` | German labels from genres[].names[].text; names filtered by language.code=deu. |
+| `keywords_names_text` | `(string|null)[]|null` | `text + keyword` | German labels from keywords[].names[].text; names filtered by language.code=deu. |
+| `cts_tags_value` | `(string|null)[]|null` | `text + keyword` | Values from ctsTags[].value across all categories. Category information is not indexed. |
+| `brand_names` | `(string|null)[]|null` | `text + keyword` | Conditional readable Brand labels resolved from DACH visibility brandCodes by input decorator/API. Reserved pending Product and API confirmation (§6.3). |
+
+### 11.4 Ratings and broadcast dates
+Super selects rating records and derives tenant dates before flat output. All three broadcast_date fields are emitted on every refresh, using null when no usable date exists (§6.1). Retained raw airing arrays are not authoritative for tenant/date queries.
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `age_ratings_min_age` | `(integer|null)[]|null` | `long` | Minimum-age values from selected ageRatings[].minAge. Prefer FSK, then FSF; exceptions and JOYN_CH applicability remain open (§6.2). |
+| `age_ratings_type` | `(string|null)[]|null` | `keyword` | Source ageRatings[].type from the selected rating records. This is not ratingSystem; FSK/FSF is selected upstream before projection. |
+| `relevant_airing_info_datetime` | `(datetime|null)[]|null` | `date` | Selected relevantAiringInfo[].datetime values. Retained source list, including placeholders for absent dates; use explicit tenant dates for correlation. |
+| `relevant_airing_info_distribution_tenant` | `(string|null)[]|null` | `keyword` | Tenants from relevantAiringInfo[].distributionTenant, restricted to JOYN, JOYN_AT and JOYN_CH. Independent flat list. |
+| `broadcast_date_joyn` | `datetime|null` | `date` | Designated airing datetime for JOYN; nullable scalar derived from the same tenant entry. |
+| `broadcast_date_joyn_at` | `datetime|null` | `date` | Designated airing datetime for JOYN_AT; explicitly null if that tenant or its datetime disappears. |
+| `broadcast_date_joyn_ch` | `datetime|null` | `date` | Designated airing datetime for JOYN_CH; explicitly null if that tenant or its datetime disappears. |
+
+<!-- page landscape -->
+### 11.5 Current availability
+Super schedules own these arrays. They are rebuilt from eligible active visibilities, including at ingestion; every array becomes [] when no eligible window remains. Names and tuple encoding are the proposal in §5.2; ordering and escaping require finalisation.
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `active_distribution_tenants` | `string[]` | `keyword` | Tenants with eligible active windows, e.g. JOYN. |
+| `active_distribution_models` | `string[]` | `keyword` | Active tenant/model combinations, e.g. `JOYN|SVOD`. Model remains associated with tenant. |
+| `active_access_rules` | `string[]` | `keyword` | Active tenant/model/complete-rights-group tuples, e.g. `JOYN|SVOD|[R1,R2]`. Empty rights groups remain valid; not playback authorisation. |
+| `active_brand_codes` | `string[]` | `keyword` | One active brand code per tenant/model tuple, e.g. `JOYN|SVOD|brand-a`. Does not carry the readable brand name. |
+
+### 11.6 Fingerprints and technical timestamp
+The fingerprint fields are stored in `_source`. Source-owned contributions and the shared Merge target have different writers (§8.1); counters never touch them.
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `fingerprint_super` | `string` | `text` | Complete Super pipeline fingerprint contribution. Required in Super output; an empty string clears the contribution. |
+| `fingerprint_metadata` | `string` | `text` | Complete Metadata pipeline fingerprint contribution. Absent before enrichment; Merge treats an absent stored contribution as empty. |
+| `fingerprint` | `string` | `text` | Combined contribution materialised atomically by Output Merge on either contributing Loader. Not directly supplied by a producer; token/analyser choices remain open. |
+| `lastARESLoaderModified` | `datetime` | `date` | Ingress envelope timestamp copied into this field by Content Loader. Not a publication date, analytics observation time or index-commit timestamp. |
+
+### Processing inputs excluded from the index
+The Super input also carries `visibilities[].timeslots[].start/end` and their parent `distributionTenant`, `type`, `requiredAccessRights` and `brandCodes`. Schedules consume them before the entire visibility subtree is removed. Rating selection consumes `ageRatings[].ratingSystem`; list filters consume title type and language codes. These processing inputs are not missing index fields: their outputs are listed above. The full source JSON Schema declares their types.
+
+The pending Series publication field and detailed Metadata attributes have no agreed names/contracts and are not invented here. Declare them explicitly in the mapping and relevant schemas before enabling their use. The gRPC envelope fields in §3.1 are transport fields, not content-index properties.
+
+<!-- page landscape -->
+### 11.7 Unique viewer counters
+Counters Loader owns every field in this table and updates existing contents only. All 36 counters across §§11.7–11.8 are required in its complete snapshot, together with id. Values are nonnegative integers up to 9,007,199,254,740,991 or null (unavailable/not applicable); zero is a measured value. OpenSearch long has coercion disabled.
+
+The 36-field roster, AVOD/SVOD segment labels, paired views windows and null convention remain a producer proposal (§9.1). ARES stores upstream counts; it does not compute viewers, views or window boundaries. Each field is scoped to the content identified by id.
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `unique_viewers_JOYN_AVOD_1d` | `integer|null` | `long` | Distinct viewers for JOYN, AVOD, 1-day window. |
+| `unique_viewers_JOYN_AVOD_2d` | `integer|null` | `long` | Distinct viewers for JOYN, AVOD, 2-day window. |
+| `unique_viewers_JOYN_AVOD_7d` | `integer|null` | `long` | Distinct viewers for JOYN, AVOD, 7-day window. |
+| `unique_viewers_JOYN_SVOD_1d` | `integer|null` | `long` | Distinct viewers for JOYN, SVOD, 1-day window. |
+| `unique_viewers_JOYN_SVOD_2d` | `integer|null` | `long` | Distinct viewers for JOYN, SVOD, 2-day window. |
+| `unique_viewers_JOYN_SVOD_7d` | `integer|null` | `long` | Distinct viewers for JOYN, SVOD, 7-day window. |
+| `unique_viewers_JOYN_AT_AVOD_1d` | `integer|null` | `long` | Distinct viewers for JOYN_AT, AVOD, 1-day window. |
+| `unique_viewers_JOYN_AT_AVOD_2d` | `integer|null` | `long` | Distinct viewers for JOYN_AT, AVOD, 2-day window. |
+| `unique_viewers_JOYN_AT_AVOD_7d` | `integer|null` | `long` | Distinct viewers for JOYN_AT, AVOD, 7-day window. |
+| `unique_viewers_JOYN_AT_SVOD_1d` | `integer|null` | `long` | Distinct viewers for JOYN_AT, SVOD, 1-day window. |
+| `unique_viewers_JOYN_AT_SVOD_2d` | `integer|null` | `long` | Distinct viewers for JOYN_AT, SVOD, 2-day window. |
+| `unique_viewers_JOYN_AT_SVOD_7d` | `integer|null` | `long` | Distinct viewers for JOYN_AT, SVOD, 7-day window. |
+| `unique_viewers_JOYN_CH_AVOD_1d` | `integer|null` | `long` | Distinct viewers for JOYN_CH, AVOD, 1-day window. |
+| `unique_viewers_JOYN_CH_AVOD_2d` | `integer|null` | `long` | Distinct viewers for JOYN_CH, AVOD, 2-day window. |
+| `unique_viewers_JOYN_CH_AVOD_7d` | `integer|null` | `long` | Distinct viewers for JOYN_CH, AVOD, 7-day window. |
+| `unique_viewers_JOYN_CH_SVOD_1d` | `integer|null` | `long` | Distinct viewers for JOYN_CH, SVOD, 1-day window. |
+| `unique_viewers_JOYN_CH_SVOD_2d` | `integer|null` | `long` | Distinct viewers for JOYN_CH, SVOD, 2-day window. |
+| `unique_viewers_JOYN_CH_SVOD_7d` | `integer|null` | `long` | Distinct viewers for JOYN_CH, SVOD, 7-day window. |
+
+<!-- page landscape -->
+### 11.8 View counters
+Counters Loader owns every field in this table and updates existing contents only. All 36 counters across §§11.7–11.8 are required in its complete snapshot, together with id. Values are nonnegative integers up to 9,007,199,254,740,991 or null (unavailable/not applicable); zero is a measured value. OpenSearch long has coercion disabled.
+
+The 36-field roster, AVOD/SVOD segment labels, paired views windows and null convention remain a producer proposal (§9.1). ARES stores upstream counts; it does not compute viewers, views or window boundaries. Each field is scoped to the content identified by id.
+| Index field | JSON type | OpenSearch type | Meaning and source |
+| --- | --- | --- | --- |
+| `views_JOYN_AVOD_1d` | `integer|null` | `long` | View events incl. repeats; JOYN, AVOD, 1-day window. |
+| `views_JOYN_AVOD_2d` | `integer|null` | `long` | View events incl. repeats; JOYN, AVOD, 2-day window. |
+| `views_JOYN_AVOD_7d` | `integer|null` | `long` | View events incl. repeats; JOYN, AVOD, 7-day window. |
+| `views_JOYN_SVOD_1d` | `integer|null` | `long` | View events incl. repeats; JOYN, SVOD, 1-day window. |
+| `views_JOYN_SVOD_2d` | `integer|null` | `long` | View events incl. repeats; JOYN, SVOD, 2-day window. |
+| `views_JOYN_SVOD_7d` | `integer|null` | `long` | View events incl. repeats; JOYN, SVOD, 7-day window. |
+| `views_JOYN_AT_AVOD_1d` | `integer|null` | `long` | View events incl. repeats; JOYN_AT, AVOD, 1-day window. |
+| `views_JOYN_AT_AVOD_2d` | `integer|null` | `long` | View events incl. repeats; JOYN_AT, AVOD, 2-day window. |
+| `views_JOYN_AT_AVOD_7d` | `integer|null` | `long` | View events incl. repeats; JOYN_AT, AVOD, 7-day window. |
+| `views_JOYN_AT_SVOD_1d` | `integer|null` | `long` | View events incl. repeats; JOYN_AT, SVOD, 1-day window. |
+| `views_JOYN_AT_SVOD_2d` | `integer|null` | `long` | View events incl. repeats; JOYN_AT, SVOD, 2-day window. |
+| `views_JOYN_AT_SVOD_7d` | `integer|null` | `long` | View events incl. repeats; JOYN_AT, SVOD, 7-day window. |
+| `views_JOYN_CH_AVOD_1d` | `integer|null` | `long` | View events incl. repeats; JOYN_CH, AVOD, 1-day window. |
+| `views_JOYN_CH_AVOD_2d` | `integer|null` | `long` | View events incl. repeats; JOYN_CH, AVOD, 2-day window. |
+| `views_JOYN_CH_AVOD_7d` | `integer|null` | `long` | View events incl. repeats; JOYN_CH, AVOD, 7-day window. |
+| `views_JOYN_CH_SVOD_1d` | `integer|null` | `long` | View events incl. repeats; JOYN_CH, SVOD, 1-day window. |
+| `views_JOYN_CH_SVOD_2d` | `integer|null` | `long` | View events incl. repeats; JOYN_CH, SVOD, 2-day window. |
+| `views_JOYN_CH_SVOD_7d` | `integer|null` | `long` | View events incl. repeats; JOYN_CH, SVOD, 7-day window. |

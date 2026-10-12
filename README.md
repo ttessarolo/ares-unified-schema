@@ -4,7 +4,7 @@ DACH ingestion contract for the UMAS v3 catalogue, scoped to **JOYN, JOYN_AT and
 
 ## Deliverables
 
-- [Formal specification — PDF](outputs/ARES-DACH-Ingestion-Specification.pdf) and [editable Word document](outputs/ARES-DACH-Ingestion-Specification.docx), with open points first and one three-lane flow.
+- [Formal specification — PDF](outputs/ARES-DACH-Ingestion-Specification.pdf) and [editable Word document](outputs/ARES-DACH-Ingestion-Specification.docx), with open points first, one three-lane flow and a complete 68-field dictionary in §11 (JSON type, OpenSearch type and meaning).
 - [Content Loader input JSON Schema](outputs/schemas/content-loader.schema.json).
 - [Counters Loader input JSON Schema](outputs/schemas/counters-loader.schema.json).
 - [Shared OpenSearch mapping](outputs/opensearch/dach-content.mapping.json).

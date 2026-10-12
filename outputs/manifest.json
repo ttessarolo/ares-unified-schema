@@ -9,18 +9,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 2424,
-      "sha256": "ba5deacee843f26def7b642d9759e82c5c5e640416fa2d7e5895e8f9b00da0be"
+      "bytes": 2505,
+      "sha256": "82e932b7b2606c91fb3de938fa2ec45e61bb237bcf595bc303cbbc45ff23ca7b"
     },
     {
       "path": "outputs/ARES-DACH-Ingestion-Specification.docx",
-      "bytes": 420472,
-      "sha256": "631bfba6313ac3ab7bd8e7bf7c0755de14e4111c9841518f5a2343877d655741"
+      "bytes": 428321,
+      "sha256": "d75458db58ccef115072c60e7d659ca066cb499f9902ac808164765d97a68f68"
     },
     {
       "path": "outputs/ARES-DACH-Ingestion-Specification.pdf",
-      "bytes": 895253,
-      "sha256": "52b6206b6cc0b4ea4f6a0f649e71419bd41608cce01f74ce4bf9be8c36749e92"
+      "bytes": 1050291,
+      "sha256": "fd8f15847437292cda9fe60b0712c85e216a06812ac12e116f73b945468f51ed"
     },
     {
       "path": "outputs/contracts/content-output-contract.json",
@@ -74,13 +74,13 @@
     },
     {
       "path": "outputs/verification.json",
-      "bytes": 3740,
-      "sha256": "2a90e6197120baaea75765001d3e4205eccbb0dc9fcd9180b0ad81ae09c83fe4"
+      "bytes": 4030,
+      "sha256": "572b51e03934c1b03a514c5b25b79be8d5bbbfb1938a0f89f16724199a200b00"
     },
     {
       "path": "scripts/dach_delivery/README.md",
-      "bytes": 2501,
-      "sha256": "f5f15ab24f988a78f183108db2ba61f1fcb0cebe6ae031bae216d9a68e3ff2c1"
+      "bytes": 2570,
+      "sha256": "daf00ab2cd8129e7500efcbd60fd8268eccc716b04873116ee8dc81c6b37135a"
     },
     {
       "path": "scripts/dach_delivery/build_contracts.py",
@@ -89,8 +89,8 @@
     },
     {
       "path": "scripts/dach_delivery/build_document.py",
-      "bytes": 7226,
-      "sha256": "b3e6e69ba7fab7b248195049eab71631726e8cb60bee6681e7269d355d788008"
+      "bytes": 7872,
+      "sha256": "f3cda4f505273ca0ffaab3fb830bbe2842d8797c3977886162d591a5e699f9ba"
     },
     {
       "path": "scripts/dach_delivery/build_figure.py",
@@ -99,8 +99,8 @@
     },
     {
       "path": "scripts/dach_delivery/document.md",
-      "bytes": 24378,
-      "sha256": "fb824881835c2238af654c344fc3acb8d2b274fa45d967dfd28ec1f13ffe887f"
+      "bytes": 38368,
+      "sha256": "5f0827010b02d9d0286a3e1dd6f1a838bb50f790fa728cd782015ff55e2773ff"
     },
     {
       "path": "scripts/dach_delivery/package_manifest.py",
@@ -109,8 +109,8 @@
     },
     {
       "path": "scripts/dach_delivery/verify_delivery.py",
-      "bytes": 9634,
-      "sha256": "4eed64bc463440c630bab2ed65bfa45f27a100e8bada6ac38d40dc508b9bbece"
+      "bytes": 11226,
+      "sha256": "667c436f19f61a84515efe75b4ae9dc05a4f4792852aae6f8a1b82ef365b0e33"
     }
   ]
 }

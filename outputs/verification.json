@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "checks": 79,
+  "checks": 85,
   "counter_fields": 36,
   "shared_index_fields": 68,
   "tenants": [
@@ -80,6 +80,10 @@
     "no non-DACH tenant names in document",
     "eight referenced opening open points",
     "all open point references exist",
+    "dictionary lists every mapped field exactly once",
+    "dictionary JSON shapes match both contracts",
+    "dictionary OpenSearch types match mapping",
+    "dictionary descriptions populated",
     "deliverable present schemas/content-loader.schema.json",
     "deliverable present schemas/counters-loader.schema.json",
     "deliverable present opensearch/dach-content.mapping.json",
@@ -87,7 +91,9 @@
     "deliverable present figures/ingestion-three-lanes.png",
     "deliverable present ARES-DACH-Ingestion-Specification.docx",
     "deliverable present ARES-DACH-Ingestion-Specification.pdf",
-    "one embedded document figure"
+    "one embedded document figure",
+    "authoring comments not rendered",
+    "DOCX contains dictionary and every mapped name"
   ],
   "limits": [
     "Offline schema and cross-artifact checks only.",

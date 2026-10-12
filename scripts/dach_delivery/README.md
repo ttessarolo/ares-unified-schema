@@ -22,7 +22,7 @@ python3 scripts/dach_delivery/build_figure.py
 python3 scripts/dach_delivery/build_document.py
 ```
 
-The document source is `document.md`. Render the DOCX with the Codex document skill's `render_docx.py --emit_pdf` and inspect every page; copy the resulting PDF to `outputs/ARES-DACH-Ingestion-Specification.pdf`. The expected layout is eight A4 pages, with page 2 landscape. Office binary hashes may differ with fonts/renderer versions. Keep headings, the eight opening open-point bullets, all tables and the single three-lane figure intact.
+The document source is `document.md`. Render the DOCX with the Codex document skill's `render_docx.py --emit_pdf` and inspect every page; copy the resulting PDF to `outputs/ARES-DACH-Ingestion-Specification.pdf`. The expected layout is thirteen A4 pages: eight specification pages (page 2 landscape) and five landscape dictionary pages (§11). Office binary hashes may differ with fonts/renderer versions. Keep headings, the eight opening open-point bullets, all tables and the single three-lane figure intact.
 
 After final visual review, refresh the portable manifest and verify:
 

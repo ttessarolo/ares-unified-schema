@@ -53,7 +53,7 @@ def main():
     normal.font.color.rgb=RGBColor.from_string(NAVY)
     normal.paragraph_format.space_after=Pt(5);normal.paragraph_format.line_spacing=1.04
     normal.paragraph_format.widow_control=True
-    for name,size,color in [('Title',24,'000000'),('Heading 1',15,NAVY),('Heading 2',11,BLUE)]:
+    for name,size,color in [('Title',24,'000000'),('Heading 1',15,'000000'),('Heading 2',11,'000000')]:
         st=styles[name];st.font.name=FONT;st.font.size=Pt(size);st.font.color.rgb=RGBColor.from_string(color)
         st.font.bold=True;st.paragraph_format.space_before=Pt(10 if name!='Title' else 0)
         st.paragraph_format.space_after=Pt(5);st.paragraph_format.keep_with_next=True
@@ -70,6 +70,7 @@ def main():
         if ln.startswith('<!-- page '):
             landscape='landscape' in ln
             sec=doc.add_section(WD_SECTION.NEW_PAGE);page_setup(sec,landscape)
+        elif ln.startswith('<!--'):continue
         elif ln=='[FIGURE]':
             p=doc.add_paragraph();p.paragraph_format.space_after=Pt(0)
             r=p.add_run();r.add_picture(str(OUT/'figures/ingestion-three-lanes.png'),width=Mm(267))
@@ -95,16 +96,22 @@ def main():
                 if all(re.fullmatch(r':?-+:?',c.replace(' ','')) for c in v):continue
                 rows.append(v)
             table=doc.add_table(rows=0,cols=len(rows[0]));table.autofit=False
-            widths=[.31,.69] if len(rows[0])==2 else [.32,.26,.42]
+            borders=OxmlElement('w:tblBorders')
+            for side in ['top','left','bottom','right','insideH','insideV']:
+                edge=OxmlElement('w:'+side);edge.set(qn('w:val'),'single');edge.set(qn('w:sz'),'4');edge.set(qn('w:color'),'D9D9D9');borders.append(edge)
+            table._tbl.tblPr.append(borders)
+            widths={2:[.31,.69],3:[.32,.26,.42],4:[.285,.175,.13,.41]}[len(rows[0])]
+            dictionary=rows[0][0]=='Index field'
             if rows[0][0]=='Artifact':widths=[.47,.53]
             usable=(doc.sections[-1].page_width-doc.sections[-1].left_margin-doc.sections[-1].right_margin)/914400
             for c,w in zip(table.columns,widths):c.width=Inches(usable*w)
             for n,rowdata in enumerate(rows):
                 row=table.add_row();pr=row._tr.get_or_add_trPr();cant=OxmlElement('w:cantSplit');pr.append(cant)
                 if n==0:head=OxmlElement('w:tblHeader');pr.append(head)
+                if len(rowdata)!=len(rows[0]):raise ValueError('Inconsistent table columns: '+str(rowdata))
                 for j,txt in enumerate(rowdata):
                     c=row.cells[j];c.width=Inches(usable*widths[j]);p=c.paragraphs[0]
-                    p.paragraph_format.space_before=Pt(3);p.paragraph_format.space_after=Pt(4)
+                    p.paragraph_format.space_before=Pt(1 if dictionary else 3);p.paragraph_format.space_after=Pt(1 if dictionary else 4)
                     p.paragraph_format.line_spacing=1.02
                     inline(p,txt,table=True)
                     for r in p.runs:
@@ -113,7 +120,7 @@ def main():
                     shade(c,NAVY if n==0 else 'F1F5F8' if n%2 else 'FAFBFC')
                     margins=OxmlElement('w:tcMar')
                     for side in ['top','left','bottom','right']:
-                        m=OxmlElement('w:'+side);m.set(qn('w:w'),'85');m.set(qn('w:type'),'dxa');margins.append(m)
+                        m=OxmlElement('w:'+side);m.set(qn('w:w'),'45' if dictionary and side in ['top','bottom'] else '85');m.set(qn('w:type'),'dxa');margins.append(m)
                     c._tc.get_or_add_tcPr().append(margins)
             p=doc.add_paragraph();p.paragraph_format.space_after=Pt(0);p.paragraph_format.space_before=Pt(0);p.paragraph_format.line_spacing=Pt(3);p.add_run().font.size=Pt(3)
         else:inline(doc.add_paragraph(),ln)

@@ -87,11 +87,28 @@ def main():
     check('eight referenced opening open points',len(re.findall(r'^- \*\*.*§',text,flags=re.M))==8)
     headings={m.group(1) for m in re.finditer(r'^#{2,3} (\d+(?:\.\d+)?) ',text,re.M)}
     check('all open point references exist',set(re.findall(r'§(\d+(?:\.\d+)?)',text.split('## 1 Scope')[0]))<=headings)
+    dictionary=text.split('## 11 Complete indexed schema dictionary',1)[1]
+    rows=re.findall(r'^\| `([^`]+)` \| `([^`]+)` \| `([^`]+)` \| (.+) \|$',dictionary,re.M)
+    check('dictionary lists every mapped field exactly once',len(rows)==len(props) and {r[0] for r in rows}==set(props))
+    def json_shape(schema):
+        if 'anyOf' in schema:return '|'.join(json_shape(v) for v in schema['anyOf'])
+        if schema.get('type')=='array':
+            inner=json_shape(schema['items']);return ('('+inner+')' if '|' in inner else inner)+'[]'
+        return 'datetime' if schema.get('format')=='date-time' else schema['type']
+    expected_shapes={k:json_shape(v) for k,v in output['properties'].items()}
+    expected_shapes.update({k:json_shape(v) for k,v in counter['properties'].items() if k!='id'})
+    expected_shapes.update(fingerprint='string',fingerprint_metadata='string',lastARESLoaderModified='datetime')
+    check('dictionary JSON shapes match both contracts',all(typ==expected_shapes[field] for field,typ,_,_ in rows))
+    check('dictionary OpenSearch types match mapping',all(os==props[field]['type']+(' + keyword' if 'fields' in props[field] else '') for field,_,os,_ in rows))
+    check('dictionary descriptions populated',all(len(meaning)>20 for _,_,_,meaning in rows))
     for x in ['schemas/content-loader.schema.json','schemas/counters-loader.schema.json','opensearch/dach-content.mapping.json','figures/ingestion-three-lanes.svg','figures/ingestion-three-lanes.png','ARES-DACH-Ingestion-Specification.docx','ARES-DACH-Ingestion-Specification.pdf']:
         check('deliverable present '+x,(OUT/x).stat().st_size>0)
     with ZipFile(OUT/'ARES-DACH-Ingestion-Specification.docx') as z:
         tree=ET.fromstring(z.read('word/document.xml'));ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
         check('one embedded document figure',len(tree.findall('.//w:drawing',ns))==1)
+        doc_text=' '.join(node.text or '' for node in tree.findall('.//w:t',ns))
+        check('authoring comments not rendered','<!--' not in doc_text)
+        check('DOCX contains dictionary and every mapped name','11 Complete indexed schema dictionary' in doc_text and all(k in doc_text for k in props))
     if not args.skip_manifest:
         manifest=load('manifest.json')
         for ent in manifest['files']:
