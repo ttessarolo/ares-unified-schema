@@ -189,17 +189,17 @@ Only owned business fields are updated. ARES also writes its standard technical 
 
 <!-- page portrait -->
 ## 10 Schemas mapping and activation
-### 10.1 Delivered contracts
-| Artifact | Purpose |
+### 10.1 Attached contracts
+| Attachment | Purpose |
 | --- | --- |
-| `schemas/content-loader.schema.json` | Technical input JSON Schema for full UMAS documents and ID-only deletion |
-| `schemas/counters-loader.schema.json` | Strict input JSON Schema for the complete proposed counter snapshot |
-| `opensearch/dach-content.mapping.json` | One shared content-index mapping for the three lanes |
-| `contracts/content-output-contract.json` | Flat Super output schema for Loader configuration, including nullable resets |
-| `contracts/loader-profiles.json` | Reviewable settings and ownership; environment values and scripts still to configure |
-| `contracts/contract-roster.json` | Field roster, supported tenants, provenance and pending contract choices |
+| `content-loader.schema.json` | Technical input JSON Schema for full UMAS documents and ID-only deletion |
+| `counters-loader.schema.json` | Strict input JSON Schema for the complete proposed counter snapshot |
+| `dach-content.mapping.json` | One shared content-index mapping for the three lanes |
+| `content-output-contract.json` | Flat Super output schema for Loader configuration, including nullable resets |
+| `loader-profiles.json` | Reviewable settings and ownership; environment values and scripts still to configure |
+| `contract-roster.json` | Field roster, supported tenants, provenance and pending contract choices |
 
-Paths are relative to `outputs/`. The two input schemas validate the JSON object inside `jsonObj`, not the gRPC envelope. The content schema requires only nonblank `id` and accepts the full source vocabulary; source fields remain optional at this technical boundary. It is not a replacement for UMAS validation upstream, and it cannot prove that a non-delete event is complete. That guarantee belongs to the producer contract.
+The files listed above are supplied as attachments. The two input schemas validate the JSON object inside `jsonObj`, not the gRPC envelope. The content schema requires only nonblank `id` and accepts the full source vocabulary; source fields remain optional at this technical boundary. It is not a replacement for UMAS validation upstream, and it cannot prove that a non-delete event is complete. That guarantee belongs to the producer contract.
 
 Input may carry source fields and tenant information that will not be indexed. DACH projection retains only the three configured markets and the selected fields. The shared mapping is strict: no implicit dynamic metadata fields. It excludes raw windows, obsolete broadcast-date aliases and unknown Series fields; it reserves the three fingerprint fields and optional Brand names. Metadata fields must be declared before that out-of-scope feed is activated.
 
@@ -222,7 +222,7 @@ Close each open item before enabling its capability. Series and conditional Bran
 <!-- schema dictionary -->
 <!-- page landscape -->
 ## 11 Complete indexed schema dictionary
-All **68 mapped fields** are listed below: 32 content/shared fields and 36 counters. JSON types describe the indexed output. The full nested input vocabulary is defined by `schemas/content-loader.schema.json` (§10.1).
+All **68 mapped fields** are listed below: 32 content/shared fields and 36 counters. JSON types describe the indexed output. The full nested input vocabulary is defined by the attached `content-loader.schema.json` (§10.1).
 
 `[]` denotes a list; `|null` allows null, including placeholders inside parentheses. `datetime` is an RFC3339 string; `date` uses `strict_date_optional_time` (derived dates use UTC). `text + keyword` adds an indexed `.keyword` subfield, not another `_source` property. OpenSearch types apply to each list value.
 

@@ -102,7 +102,7 @@ def main():
             table._tbl.tblPr.append(borders)
             widths={2:[.31,.69],3:[.32,.26,.42],4:[.285,.175,.13,.41]}[len(rows[0])]
             dictionary=rows[0][0]=='Index field'
-            if rows[0][0]=='Artifact':widths=[.47,.53]
+            if rows[0][0] in {'Artifact','Attachment'}:widths=[.47,.53]
             usable=(doc.sections[-1].page_width-doc.sections[-1].left_margin-doc.sections[-1].right_margin)/914400
             for c,w in zip(table.columns,widths):c.width=Inches(usable*w)
             for n,rowdata in enumerate(rows):
