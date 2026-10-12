@@ -13,6 +13,9 @@
 !/outputs/figures/
 !/outputs/verification.json
 !/outputs/manifest.json
+!/outputs/12-ott-2026/
+/outputs/12-ott-2026/*
+!/outputs/12-ott-2026/ARES-DACH-Ingestion-Specification.pdf
 /scripts/*
 !/scripts/dach_delivery/
 **/__pycache__/

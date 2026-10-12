@@ -40,7 +40,7 @@ def bookmark(p, number):
 def cells(line):
     return [s.strip() for s in re.split(r'\|(?=(?:[^`]*`[^`]*`)*[^`]*$)',line.strip().strip('|'))]
 
-def main():
+def main(source=None, target=None):
     doc=Document();page_setup(doc.sections[0]);doc.core_properties.title='DACH catalogue ingestion specification'
     doc.core_properties.author='ARES'; doc.core_properties.subject='UMAS v3 content and counters ingestion contracts'
     styles=doc.styles
@@ -63,7 +63,7 @@ def main():
     footer=doc.sections[0].footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
     r=footer.add_run('ARES  /  DACH     ');r.font.name=FONT;r.font.size=Pt(8);r.font.color.rgb=RGBColor.from_string(MUTED)
     fld=OxmlElement('w:fldSimple');fld.set(qn('w:instr'),'PAGE');footer._p.append(fld)
-    lines=(ROOT/'scripts/dach_delivery/document.md').read_text().splitlines();i=0;heading_id=0
+    lines=(source or ROOT/'scripts/dach_delivery/document.md').read_text().splitlines();i=0;heading_id=0
     while i<len(lines):
         ln=lines[i];i+=1
         if not ln.strip():continue
@@ -102,7 +102,7 @@ def main():
             table._tbl.tblPr.append(borders)
             widths={2:[.31,.69],3:[.32,.26,.42],4:[.285,.175,.13,.41]}[len(rows[0])]
             dictionary=rows[0][0]=='Index field'
-            if rows[0][0] in {'Artifact','Attachment'}:widths=[.47,.53]
+            if rows[0][0] in {'Artifact','Attachment','Specification'}:widths=[.47,.53]
             usable=(doc.sections[-1].page_width-doc.sections[-1].left_margin-doc.sections[-1].right_margin)/914400
             for c,w in zip(table.columns,widths):c.width=Inches(usable*w)
             for n,rowdata in enumerate(rows):
@@ -124,7 +124,14 @@ def main():
                     c._tc.get_or_add_tcPr().append(margins)
             p=doc.add_paragraph();p.paragraph_format.space_after=Pt(0);p.paragraph_format.space_before=Pt(0);p.paragraph_format.line_spacing=Pt(3);p.add_run().font.size=Pt(3)
         else:inline(doc.add_paragraph(),ln)
-    OUT.mkdir(exist_ok=True)
-    target=OUT/'ARES-DACH-Ingestion-Specification.docx';doc.save(target);print(target)
+    target=target or OUT/'ARES-DACH-Ingestion-Specification.docx'
+    target.parent.mkdir(parents=True,exist_ok=True)
+    doc.save(target);print(target)
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source',type=Path,help='Optional Markdown edition; defaults to the main specification')
+    parser.add_argument('--output',type=Path,help='Optional DOCX target; defaults to the main deliverable')
+    args=parser.parse_args()
+    main(args.source,args.output)

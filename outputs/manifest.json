@@ -4,13 +4,18 @@
   "files": [
     {
       "path": ".gitignore",
-      "bytes": 450,
-      "sha256": "a8a43eb97cdeba961b4ca54f09a87f9472345c51d2c9416c881613449b0b4039"
+      "bytes": 556,
+      "sha256": "c9f7a4be5d4a9264dc71846b430eded91c7a2630fb24a8704613b12cd2f07836"
     },
     {
       "path": "README.md",
-      "bytes": 2505,
-      "sha256": "82e932b7b2606c91fb3de938fa2ec45e61bb237bcf595bc303cbbc45ff23ca7b"
+      "bytes": 2688,
+      "sha256": "28fdaf0221fbf3bfa1bee10ed635a13dbd98db11e6a277ed9c105ac8b1579014"
+    },
+    {
+      "path": "outputs/12-ott-2026/ARES-DACH-Ingestion-Specification.pdf",
+      "bytes": 1050205,
+      "sha256": "80c18ecc588055bc819bbd2e9336e97b34b04db3f06abe60057c7483e270943c"
     },
     {
       "path": "outputs/ARES-DACH-Ingestion-Specification.docx",
@@ -89,8 +94,8 @@
     },
     {
       "path": "scripts/dach_delivery/build_document.py",
-      "bytes": 7889,
-      "sha256": "c35263ac55293771779d5a03fe04b7cf4debb5ebfed1ce3e8aa9dc438f2004dc"
+      "bytes": 8332,
+      "sha256": "da6b9f2344f19b722ce9ec890d156837223dbe8ec9afa7d90549104f6f839037"
     },
     {
       "path": "scripts/dach_delivery/build_figure.py",
