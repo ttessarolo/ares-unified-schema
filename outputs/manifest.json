@@ -14,13 +14,13 @@
     },
     {
       "path": "outputs/ARES-DACH-Ingestion-Specification.docx",
-      "bytes": 428310,
-      "sha256": "49ebbd2fdcefbaf184d8072c5c15e8effab598360d5adb57dfb180ffe5092069"
+      "bytes": 428311,
+      "sha256": "37ec5bd4406927e43edb30ad249330155c09a09639560c6217b49c63f325458e"
     },
     {
       "path": "outputs/ARES-DACH-Ingestion-Specification.pdf",
-      "bytes": 1050320,
-      "sha256": "f33284d44d21c757229722aeb084893b0e2eceb41846f4c53726b94ce61598b4"
+      "bytes": 1050339,
+      "sha256": "901bb73af37a02a9c19b93bb454f206a7cf37693700aff6fefca7cb3baafca00"
     },
     {
       "path": "outputs/contracts/content-output-contract.json",
@@ -99,8 +99,8 @@
     },
     {
       "path": "scripts/dach_delivery/document.md",
-      "bytes": 38335,
-      "sha256": "0d1a0d7d2502b1f378682f8b6a3813f93e9aeb2092ee4594191d5fe2fff01cb5"
+      "bytes": 38338,
+      "sha256": "c56f86af7e326c0d4d27dd2f527292b8de6ddbf9d4a7712f68a2ccc5995024ca"
     },
     {
       "path": "scripts/dach_delivery/package_manifest.py",

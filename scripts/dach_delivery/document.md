@@ -189,7 +189,7 @@ Only owned business fields are updated. ARES also writes its standard technical 
 
 <!-- page portrait -->
 ## 10 Schemas mapping and activation
-### 10.1 Attached contracts
+### 10.1 Technical attachments
 | Attachment | Purpose |
 | --- | --- |
 | `content-loader.schema.json` | Technical input JSON Schema for full UMAS documents and ID-only deletion |
